@@ -1,0 +1,121 @@
+.bar, .bar-name{
+  z-index: 25;
+  &.bar-solid-add, &.bar-solid-remove{
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    position: fixed;
+  }
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  a.title{
+    position: fixed;
+    left: 0;
+    font-size: 30px;
+    line-height: 80px;
+    margin-left: 120px;
+
+    &:before{
+      bottom: 20px;
+    }
+  }
+
+  a{
+    position: relative;
+    font-family: 'Oxygen', sans-serif;
+    font-weight: 300;
+    color: white;
+    text-decoration: none;
+  }
+
+  a:hover{
+    color: white;
+  }
+
+  a:before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background-color: white;
+    visibility: hidden;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -webkit-transition: all 0.3s ease-in-out 0s;
+    transition: all 0.3s ease-in-out 0s;
+  }
+
+  a:hover:before{
+    visibility: visible;
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+  }
+
+  .nav-active{
+    color: $bar-name-color !important;
+    transition: 0.3s color;
+
+    &:before{
+      background-color: $bar-name-color !important;
+      visibility: visible;
+      -webkit-transform: scaleX(1);
+      transform: scaleX(1);
+    }
+
+    &:hover{
+      color: darken($bar-name-color, 10%) !important;
+
+      &:before{
+        background-color: darken($bar-name-color, 10%) !important;
+      }
+    }
+  }
+}
+
+.bar-name, .bar-solid-remove.bar-solid-remove-active{
+  &.bar-solid, .bar-solid-add.bar-solid-add-active{
+    background-color: $bar-name-color;
+  }
+
+  height: 80px;
+  z-index: 25;
+}
+
+.bar, .bar-solid-remove.bar-solid-remove-active{
+  &.bar-solid, .bar-solid-add.bar-solid-add-active{
+    background-color: $bar-color;
+
+    #triangle-topleft{
+      border-bottom-color: $bar-color;
+    }
+  }
+
+  height: 90px;
+  left: 534px;
+  z-index: 25;
+
+  .nav-link{
+    line-height: 90px;
+    color: white;
+    font-family: 'Oxygen', sans-serif;
+    margin-left: 30px;
+    margin-right: 30px;
+    font-size: 20px;
+  }
+
+  #triangle-topleft {
+    position: fixed;
+    top: 0;
+    left: 444px;
+    z-index: 25;
+    width: 0;
+    height: 0;
+    border-bottom: 90px solid transparent;
+    border-left: 90px solid transparent;
+    transition: border-bottom-color cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+  }
+}

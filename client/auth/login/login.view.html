@@ -1,0 +1,27 @@
+<div class="spacer-sm"></div>
+<div class="spacer-sm"></div>
+<div class="section">
+    <div class="container">
+        <h2 class="text-center">Login to Atropos</h2>
+
+        <form name="register" class="form" ng-submit="user.onSubmit()" method="post">
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Username</label>
+                    <input ng-model="user.credentials.username">
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Password</label>
+                    <input ng-model="user.credentials.password" type="password">
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-button type="submit" class="md-primary md-raised">Login</md-button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="section section-grey">
+</div>
