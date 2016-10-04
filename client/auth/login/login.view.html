@@ -4,17 +4,17 @@
     <div class="container">
         <h2 class="text-center">Login to Atropos</h2>
 
-        <form name="register" class="form" ng-submit="user.onSubmit()" method="post">
+        <form name="register" class="form" ng-submit="vm.onSubmit()" method="post">
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
-                    <label>Username</label>
-                    <input ng-model="user.credentials.username">
+                    <label>Email</label>
+                    <input ng-model="vm.credentials.email">
                 </md-input-container>
             </div>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Password</label>
-                    <input ng-model="user.credentials.password" type="password">
+                    <input ng-model="vm.credentials.password" type="password">
                 </md-input-container>
             </div>
             <div layout-gt-sm="row">

@@ -1,7 +1,7 @@
 /**
  * Created by Jackson on 9/30/16.
  */
-app.service('auth', function($http, $window){
+app.service('auth', function($http, $window, $route){
     var saveToken = function (token) {
         $window.localStorage['mean-token'] = token;
     };
@@ -32,7 +32,7 @@ app.service('auth', function($http, $window){
     var currentUser = function () {
         if(isLoggedIn()){
             var token = getToken();
-            var payload = payload.split('.')[1];
+            var payload = token.split('.')[1];
             payload = $window.atob(payload);
             payload = JSON.parse(payload);
 
@@ -45,13 +45,16 @@ app.service('auth', function($http, $window){
 
     var register = function (user) {
         return $http.post('/api/register', user).then(function(response){
-            saveToken(response.token);
+            saveToken(response.data.token);
+            $route.reload();
         })
     };
 
     var login = function (user) {
         return $http.post('/api/login', user).then(function(response){
-            saveToken(response.token);
+            console.dir(response);
+            saveToken(response.data.token);
+            $route.reload();
         })
     };
 
@@ -60,6 +63,8 @@ app.service('auth', function($http, $window){
         getToken: getToken,
         logout: logout,
         isLoggedIn: isLoggedIn,
-        currentUser: currentUser
+        currentUser: currentUser,
+        register: register,
+        login: login
     };
 });

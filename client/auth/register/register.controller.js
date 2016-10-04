@@ -2,19 +2,20 @@
  * Created by Jackson on 9/30/16.
  */
 app.controller('registerCtrl', function($location, auth){
-    var user = this;
+    var vm = this;
 
-    user.credentials = {
-        usernamename: "",
+    vm.credentials = {
+        username: "",
         email: "",
         password: ""
     };
 
-    user.submit = function(){
+    vm.onSubmit = function(){
+        console.log("Registering");
+
         auth
-            .register(user.credentials)
-            .error(err => alert(err))
-            .then(()=>{
+            .register(vm.credentials)
+            .then(function(){
                 $location.path('/')
             });
 

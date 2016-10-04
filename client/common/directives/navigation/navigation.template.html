@@ -1,0 +1,14 @@
+<div scroll-position="scroll" id="top">
+    <div class="bar-name" ng-class="{'bar-solid': scroll > 30}">
+        <a href="#" class="title">Atropos</a>
+    </div>
+
+    <div class="bar" ng-class="{'bar-solid': scroll > 30}" ng-controller="navCtrl">
+        <div id="triangle-topleft"></div>
+        <a href="#/" class="nav-link" ng-class="{'nav-active': isActive('/')}">Home</a>
+        <a href="#/features" class="nav-link" ng-class="{'nav-active': isActive('/features')}">Features</a>
+        <a href="#" class="nav-link" ng-class="{'nav-active': isActive('/support')}">Support</a>
+        <a href="#/panel" class="nav-link" ng-show="isLoggedIn">{{ currentUser.username }}</a>
+        <a href="#/login" class="nav-link" ng-class="{'nav-active': isActive('/login')}" ng-hide="isLoggedIn">Login</a>
+    </div>
+</div>

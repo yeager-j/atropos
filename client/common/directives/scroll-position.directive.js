@@ -1,13 +1,13 @@
 /**
  * Created by Jackson on 9/30/16.
  */
-app.directive('scrollPosition', $window=>{
+app.directive('scrollPosition', function($window){
     return {
         scope: {
             scroll: '=scrollPosition'
         },
 
-        link: (scope, element, attrs)=>{
+        link: function(scope, element, attrs){
             var windowEl = angular.element($window);
             var handler = function() {
                 scope.scroll = $window.pageYOffset;

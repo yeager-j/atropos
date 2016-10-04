@@ -12,9 +12,8 @@ app.controller('loginCtrl', function($location, auth){
     user.onSubmit = function () {
         auth
             .login(user.credentials)
-            .error(err => alert(err))
-            .then(() => {
-                $location.path('/');
+            .then(function(){
+                $location.path('/panel');
             })
     }
 });

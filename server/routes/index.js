@@ -8,9 +8,12 @@ var auth = jwt({
     userProperty: 'payload'
 });
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('index', {title: 'Express'});
-});
+var ctrlAuth = require('../controllers/auth');
+var userAuth = require('../controllers/user_cp');
+
+router.post('/register', ctrlAuth.register);
+router.post('/login', ctrlAuth.login);
+
+router.get('/profile', userAuth.userCP);
 
 module.exports = router;

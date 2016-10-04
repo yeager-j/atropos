@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Atropos Client</title>
+    <base href="/">
     <!--Dependencies-->
     <link href="/angular-material/angular-material.min.css" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
@@ -10,22 +11,11 @@
     <link href="https://fonts.googleapis.com/css?family=Actor|Lato|Lekton|Open+Sans|Raleway" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
+
 </head>
 <body ng-cloak ng-controller="mainCtrl">
 
-<div scroll-position="scroll" id="top">
-    <div class="bar-name" ng-class="{'bar-solid': scroll > 30}">
-        <a href="#" class="title">Atropos</a>
-    </div>
-
-    <div class="bar" ng-class="{'bar-solid': scroll > 30}">
-        <div id="triangle-topleft"></div>
-        <a href="#/" class="nav-link" ng-class="{'nav-active': isActive('/')}">Home</a>
-        <a href="#/features" class="nav-link" ng-class="{'nav-active': isActive('/features')}">Features</a>
-        <a href="#" class="nav-link" ng-class="{'nav-active': isActive('/support')}">Support</a>
-        <a href="#/login" class="nav-link" ng-class="{'nav-active': isActive('/login')}">Login</a>
-    </div>
-</div>
+<navigation></navigation>
 
 <div class="fade" ng-view="" autoscroll="true"></div>
 
@@ -39,6 +29,12 @@
 
 <!--Atropos Code-->
 <script src="atropos.js"></script>
+<script src="auth/register/register.controller.js"></script>
+<script src="auth/login/login.controller.js"></script>
+<script src="common/directives/navigation/navigation.controller.js"></script>
+<script src="common/directives/navigation/navigation.directive.js"></script>
+<script src="common/services/auth.service.js"></script>
+<script src="common/directives/scroll-position.directive.js"></script>
 
 </body>
 </html>
