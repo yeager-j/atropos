@@ -8,7 +8,7 @@
         <a href="#/" class="nav-link" ng-class="{'nav-active': isActive('/')}">Home</a>
         <a href="#/features" class="nav-link" ng-class="{'nav-active': isActive('/features')}">Features</a>
         <a href="#" class="nav-link" ng-class="{'nav-active': isActive('/support')}">Support</a>
-        <a href="#/panel" class="nav-link" ng-show="isLoggedIn">{{ currentUser.username }}</a>
+        <a href="#/panel" class="nav-link" ng-class="{'nav-active': isActive('/panel')}" ng-show="isLoggedIn">{{ currentUser.username }}</a>
         <a href="#/login" class="nav-link" ng-class="{'nav-active': isActive('/login')}" ng-hide="isLoggedIn">Login</a>
     </div>
 </div>

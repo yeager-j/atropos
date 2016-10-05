@@ -14,6 +14,6 @@ var userAuth = require('../controllers/user_cp');
 router.post('/register', ctrlAuth.register);
 router.post('/login', ctrlAuth.login);
 
-router.get('/profile', userAuth.userCP);
+router.get('/profile', auth, userAuth.userCP);
 
 module.exports = router;

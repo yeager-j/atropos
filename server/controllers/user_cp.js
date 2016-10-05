@@ -1,8 +1,6 @@
 /**
  * Created by Jackson on 9/30/16.
  */
-'use strict';
-
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 
@@ -14,6 +12,7 @@ module.exports.userCP = function (req, res) {
     }else{
         User.findById(req.payload._id)
             .exec(function(err, user) {
+                console.log(user);
                 res.status(200).json(user);
             });
     }

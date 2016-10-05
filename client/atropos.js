@@ -38,7 +38,8 @@ app.config(function($routeProvider, $mdThemingProvider, $locationProvider){
         })
 
         .when('/panel', {
-            template: 'Hello, world!'
+            templateUrl: 'user/user.view.html',
+            controller: 'userCtrl'
         })
 
         .otherwise({
