@@ -64,6 +64,12 @@ app.controller('userCtrl', function($scope, auth, appData, $timeout, $mdBottomSh
 
     $scope.logout = function(){
         auth.logout();
-        $location.path('/')
+        $location.path('/');
+        $mdToast.show(
+            $mdToast.simple()
+                .textContent("You've been logged out.")
+                .position('bottom right')
+                .hideDelay(3000)
+        );
     }
 });

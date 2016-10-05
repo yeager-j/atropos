@@ -3,7 +3,7 @@
 @import "components/navbar";
 
 body{
-  background-color: #333;
+  background-color: #555;
   overflow-x: hidden;
 }
 
@@ -163,14 +163,14 @@ md-bottom-sheet.md-grid md-list-item .md-grid-text{
   }
 
   &.section-grey{
-    background-color: #333;
+    background-color: #555;
 
     h2, h3, h4, p{
       color: white;
     }
 
     &::before{
-      background-color: #333;
+      background-color: #555;
     }
   }
 }

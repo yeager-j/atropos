@@ -125,7 +125,7 @@
 
 /* line 5, ../compass/sass/styles.scss */
 body {
-  background-color: #333;
+  background-color: #555;
   overflow-x: hidden;
 }
 
@@ -325,7 +325,7 @@ md-bottom-sheet.md-grid md-list-item .md-grid-text {
 }
 /* line 165, ../compass/sass/styles.scss */
 .section.section-grey {
-  background-color: #333;
+  background-color: #555;
 }
 /* line 168, ../compass/sass/styles.scss */
 .section.section-grey h2, .section.section-grey h3, .section.section-grey h4, .section.section-grey p {
@@ -333,7 +333,7 @@ md-bottom-sheet.md-grid md-list-item .md-grid-text {
 }
 /* line 172, ../compass/sass/styles.scss */
 .section.section-grey::before {
-  background-color: #333;
+  background-color: #555;
 }
 
 /* line 178, ../compass/sass/styles.scss */

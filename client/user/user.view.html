@@ -1,29 +1,25 @@
 <div class="spacer-sm"></div>
 <div class="spacer-sm"></div>
-<div class="section section-grey">
-    <div class="container text-center">
-        <div layout="row" layout-align="center center">
-            <md-card md-theme="default" md-theme-watch flex="50" class="text-left">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">{{ user.username }}</span>
-                        <span class="md-subhead">{{ user.email }}</span>
-                        <span class="md-subhead">{{ premium }}</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media">
-                            <img src="https://mc-heads.net/avatar/{{ user.username }}">
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button ng-click="showBottomSheet()">Settings</md-button>
-                    <md-button ng-click="logout()">Log Out</md-button>
-                </md-card-actions>
-            </md-card>
-        </div>
-        <div class="spacer-sm"></div>
+<div class="container text-center">
+    <div layout="row" layout-align="center center">
+        <md-card md-theme="default" md-theme-watch flex="50" class="text-left">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">{{ user.username }}</span>
+                    <span class="md-subhead">{{ user.email }}</span>
+                    <span class="md-subhead">{{ premium }}</span>
+                </md-card-title-text>
+                <md-card-title-media>
+                    <div class="md-media-lg card-media">
+                        <img src="https://mc-heads.net/avatar/{{ user.username }}">
+                    </div>
+                </md-card-title-media>
+            </md-card-title>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button ng-click="showBottomSheet()">Settings</md-button>
+                <md-button ng-click="logout()">Log Out</md-button>
+            </md-card-actions>
+        </md-card>
     </div>
-</div>
-<div class="section section-grey">
+    <div class="spacer-sm"></div>
 </div>
