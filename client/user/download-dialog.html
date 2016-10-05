@@ -1,0 +1,12 @@
+<md-dialog>
+    <form style="margin: auto;" class="text-center">
+        <div layout-gt-xs="row">
+            <md-input-container class="md-block" flex-gt-xs>
+                <md-select placeholder="Select version" ng-model="version" md-on-open="loadVersions()">
+                    <md-option ng-value="version" ng-repeat="version in versions">{{ version.name }}</md-option>
+                </md-select>
+            </md-input-container>
+        </div>
+        <md-button type="submit" class="md-primary md-raised" style="margin-top: 0;">Download</md-button>
+    </form>
+</md-dialog>
