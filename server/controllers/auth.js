@@ -58,8 +58,6 @@ module.exports.login = function(req, res) {
 
         if(user){
             token = user.generateJwt();
-            console.log("Token:");
-            console.log(token);
             res.status(200);
             res.json({
                 token : token
