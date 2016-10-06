@@ -10,7 +10,16 @@ app.service('appData', function($http, auth){
         });
     };
 
+    var getUser = function(id){
+        return $http.get('/api/profile/' + id, {
+            headers: {
+                Authorization: 'Bearer '+ auth.getToken()
+            }
+        });
+    };
+
     return {
-        getData: getData
+        getData: getData,
+        getUser: getUser
     }
 });

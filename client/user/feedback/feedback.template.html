@@ -1,0 +1,34 @@
+<md-dialog style="width: 600px;">
+    <md-dialog-content class="md-dialog-content">
+        <h3>Submit Feedback</h3>
+        <form name="feedback" ng-submit="submit()">
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Title</label>
+                    <md-icon class="material-icons">info</md-icon>
+                    <input ng-model="feedback.title" required name="postTitle" ng-minlength="5" ng-maxlength="30">
+                    <div ng-messages="feedback.postTitle.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            Your title should be at least 5 characters and less than 30.
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block" flex-gt-sm>
+                    <label>Content</label>
+                    <md-icon class="material-icons">comment</md-icon>
+                    <textarea ng-model="feedback.text" required name="content" ng-minlength="30" ng-maxlength="500" md-maxlength="500" rows="5"></textarea>
+                    <div ng-messages="feedback.content.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            Your feedback should at least 30 characters to properly describe your issue.
+                        </div>
+                    </div>
+                </md-input-container>
+            </div>
+            <md-button type="submit" class="md-primary md-raised">Submit</md-button>
+        </form>
+    </md-dialog-content>
+</md-dialog>

@@ -1,7 +1,7 @@
 /**
  * Created by Jackson on 9/29/16.
  */
-var app = angular.module('atropos', ['ngMaterial', 'ngRoute', 'ngMessages']);
+var app = angular.module('atropos', ['ngMaterial', 'ngRoute', 'ngMessages', 'ngAnimate']);
 
 app.controller('mainCtrl', function($scope, $route, auth){
     $scope.scroll = 0;

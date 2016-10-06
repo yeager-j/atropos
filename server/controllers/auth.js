@@ -23,6 +23,8 @@ module.exports.register = function (req, res) {
 
     user.username = req.body.username;
     user.email = req.body.email;
+    user.premium = false;
+    user.admin = false;
 
     user.setPassword(req.body.password);
 
@@ -30,8 +32,6 @@ module.exports.register = function (req, res) {
         var token;
         token = user.generateJwt();
         res.status(200);
-
-        console.log(err);
         res.json({
             "token": token
         });
@@ -76,11 +76,8 @@ module.exports.edit = function (req, res) {
                         res.json({
                             "token": user.generateJwt()
                         });
-
-                        console.log("Worked!");
                     })
             }else{
-                console.log("Non unique email");
                 res.status(418);
                 res.json({
                     "message": "Email already registered"
@@ -91,9 +88,6 @@ module.exports.edit = function (req, res) {
 };
 
 module.exports.updatePass = function (req, res) {
-    console.log("Received request");
-    console.log(req.body.data);
-
     if(!req.body.data.password || !req.body.data.currentPass){
         sendJSONresponse(res, 400, {
             "message": "Password required"
@@ -101,8 +95,6 @@ module.exports.updatePass = function (req, res) {
 
         return;
     }
-
-    console.log("validated");
 
     if(!req.body.data._id){
         res.status(401).json({
@@ -115,12 +107,7 @@ module.exports.updatePass = function (req, res) {
                 console.log("Error");
             }
 
-            console.log("No error");
-            console.log(user.email);
-            console.log(user.checkPassword(req.body.data.currentPass));
-
             if(user.checkPassword(req.body.data.currentPass) == true){
-                console.log("good pass");
                 user.setPassword(req.body.data.password);
                 user.save();
 
@@ -129,8 +116,6 @@ module.exports.updatePass = function (req, res) {
                 res.json({
                     "message": "OK"
                 });
-
-                console.log("Worked");
             }else{
                 res.status(401);
                 res.json({

@@ -7,6 +7,10 @@ body {
   overflow-x: hidden;
 }
 
+html{
+  background-color: #555;
+}
+
 .material-icons.md-18 {
   font-size: 18px;
 }
@@ -315,4 +319,44 @@ md-bottom-sheet.md-grid md-list-item .md-grid-text {
 .form {
   width: 500px;
   margin: auto;
+}
+
+.admin{
+  font-weight: bold;
+  color: #cb0000;
+}
+
+.feedback{
+  .ng-enter {
+    -webkit-transition: 1s;
+    transition: 1s;
+
+    margin-bottom: 100%;
+  }
+
+  .ng-enter-active {
+    margin-bottom: 0;
+  }
+
+  .ng-leave {
+    -webkit-transition: 1s;
+    transition: 1s;
+
+    margin-bottom: 0;
+  }
+
+  .ng-leave-active {
+    margin-bottom: 100%;
+  }
+
+  .ng-move {
+    -webkit-transition: 1s;
+    transition: 1s;
+
+    background: gold;
+  }
+
+  .ng-move-active {
+    background: #fff;
+  }
 }

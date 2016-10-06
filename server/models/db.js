@@ -3,7 +3,7 @@
  */
 var mongoose = require('mongoose');
 var gracefulShutdown;
-var dbURI = 'mongodb://localhost/atropos';
+var dbURI = 'mongodb://admin:SI8gZV51A1e0FXTCKsan@ds021326.mlab.com:21326/atropos';
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }

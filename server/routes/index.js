@@ -10,12 +10,17 @@ var auth = jwt({
 
 var ctrlAuth = require('../controllers/auth');
 var userAuth = require('../controllers/user_cp');
+var feedback = require('../controllers/post');
 
 router.post('/register', ctrlAuth.register);
 router.post('/edit', ctrlAuth.edit);
 router.post('/login', ctrlAuth.login);
 router.post('/password', ctrlAuth.updatePass);
 
+router.post('/feedback', feedback.submit);
+router.get('/feedback', auth, feedback.getFeedback);
+
 router.get('/profile', auth, userAuth.userCP);
+router.get('/profile/:id', auth, userAuth.getUser);
 
 module.exports = router;
