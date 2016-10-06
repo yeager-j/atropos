@@ -60,7 +60,7 @@ module.exports.edit = function (req, res) {
             console.log("User: ");
             console.log(user);
 
-            if(user == null){
+            if(user == null || user._id == req.body.data._id){
                 User.findByIdAndUpdate(
                     req.body.data._id,
                     {
