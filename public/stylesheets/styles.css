@@ -95,11 +95,11 @@
 }
 /* line 89, ../compass/sass/components/_navbar.scss */
 .bar.bar-solid, .bar .bar-solid-add.bar-solid-add-active, .bar-solid-remove.bar-solid-remove-active.bar-solid, .bar-solid-remove.bar-solid-remove-active .bar-solid-add.bar-solid-add-active {
-  background-color: #3E438F;
+  background-color: #3F51B5;
 }
 /* line 92, ../compass/sass/components/_navbar.scss */
 .bar.bar-solid #triangle-topleft, .bar .bar-solid-add.bar-solid-add-active #triangle-topleft, .bar-solid-remove.bar-solid-remove-active.bar-solid #triangle-topleft, .bar-solid-remove.bar-solid-remove-active .bar-solid-add.bar-solid-add-active #triangle-topleft {
-  border-bottom-color: #3E438F;
+  border-bottom-color: #3F51B5;
 }
 /* line 101, ../compass/sass/components/_navbar.scss */
 .bar .nav-link, .bar-solid-remove.bar-solid-remove-active .nav-link {

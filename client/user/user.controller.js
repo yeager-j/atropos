@@ -1,7 +1,7 @@
 /**
  * Created by Jackson on 9/30/16.
  */
-app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, $mdBottomSheet, $mdToast, $mdDialog, $location) {
+app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, $mdToast, $mdDialog, $location) {
     $scope.user = {};
     $scope.version = null;
     $scope.versions = null;
@@ -27,20 +27,24 @@ app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, 
             }
         });
 
-    feedback.getFeedback()
-        .then(function (res) {
-            for(var i = 0; i < res.data.length; i++){
-                (function(){
-                    var n = i;
-                    appData.getUser(res.data[i].uuid)
-                        .then(function(response){
-                            res.data[n].author = response.data.username;
-                            console.log(res.data[n]);
-                            $scope.feedbackList.push(res.data[n]);
-                        });
-                })();
-            }
-        });
+    $scope.refresh = function(){
+        $scope.feedbackList = [];
+        feedback.getFeedback()
+            .then(function (res) {
+                for(var i = 0; i < res.data.length; i++){
+                    (function(){
+                        var n = i;
+                        appData.getUser(res.data[i].uuid)
+                            .then(function(response){
+                                res.data[n].author = response.data.username;
+                                res.data[n].email = response.data.email;
+                                console.log(res.data[n]);
+                                $scope.feedbackList.push(res.data[n]);
+                            });
+                    })();
+                }
+            });
+    };
 
     $scope.loadVersions = function () {
 
@@ -57,53 +61,38 @@ app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, 
         }, 650);
     };
 
-    $scope.showBottomSheet = function () {
-        $mdBottomSheet.show({
-            templateUrl: 'user/bottom-sheet.html',
-            controller: 'userCtrl'
-        }).then(function (clickedItem) {
-            // $mdToast.show(
-            //     $mdToast.simple()
-            //         .textContent(clickedItem['name'] + ' clicked!')
-            //         .position('top right')
-            //         .hideDelay(1500)
-            // );
+    $scope.openMenu = function($mdOpenMenu, ev){
+        $mdOpenMenu(ev);
+    };
 
-            switch (clickedItem.name) {
-                case "Settings":
-                    $mdDialog.show({
-                        controller: 'settingsCtrl',
-                        templateUrl: 'user/settings/settings.template.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: true,
-                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-                    });
-                    break;
-                case "Change Password":
-                    $mdDialog.show({
-                        controller: 'passwordCtrl',
-                        templateUrl: 'user/password/password.template.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: true,
-                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-                    });
-                    break;
-                case "Send Feedback":
-                    $mdDialog.show({
-                        controller: 'feedbackCtrl',
-                        templateUrl: 'user/feedback/feedback.template.html',
-                        parent: angular.element(document.body),
-                        clickOutsideToClose: true,
-                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-                    });
-                    break;
-            }
+    $scope.showSettings = function(){
+        $mdDialog.show({
+            controller: 'settingsCtrl',
+            templateUrl: 'user/settings/settings.template.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
         });
     };
 
-    $scope.listItemClick = function ($index) {
-        var clickedItem = $scope.items[$index];
-        $mdBottomSheet.hide(clickedItem);
+    $scope.showPassword = function(){
+        $mdDialog.show({
+            controller: 'passwordCtrl',
+            templateUrl: 'user/password/password.template.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        });
+    };
+
+    $scope.showFeedback = function(){
+        $mdDialog.show({
+            controller: 'feedbackCtrl',
+            templateUrl: 'user/feedback/feedback.template.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose: true,
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        });
     };
 
     $scope.logout = function () {
@@ -115,5 +104,7 @@ app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, 
                 .position('bottom right')
                 .hideDelay(3000)
         );
-    }
+    };
+
+    $scope.refresh();
 });

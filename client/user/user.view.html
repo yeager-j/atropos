@@ -3,52 +3,131 @@
 <div class="section section-grey">
     <div class="container text-center">
         <div layout="row" layout-align="center center">
-            <md-card md-theme="default" md-theme-watch flex="50" class="text-left">
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline" ng-class="{'admin': user.admin}">{{ user.username }}</span>
-                        <span class="md-subhead">{{ user.email }}</span>
-                        <span class="md-subhead">{{ premium }}</span>
-                    </md-card-title-text>
-                    <md-card-title-media>
-                        <div class="md-media-lg card-media">
-                            <img src="https://mc-heads.net/avatar/{{ user.username }}">
-                        </div>
-                    </md-card-title-media>
-                </md-card-title>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button ng-if="!user.premium" href="#/purchase" class="md-primary md-raised">Purchase Atropos
-                    </md-button>
-                    <md-button ng-click="showBottomSheet()">Settings</md-button>
-                    <md-button ng-click="logout()">Log Out</md-button>
-                </md-card-actions>
-            </md-card>
+            <div flex="50">
+                <md-content>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">Control Panel</div>
+                    </md-toolbar>
+                    <md-card md-theme="default" md-theme-watch class="text-left">
+                        <md-card-title>
+                            <md-card-title-text>
+                                <span class="md-headline">{{ user.username }}</span>
+                                <span class="md-subhead">{{ user.email }}</span>
+                                <span class="md-subhead">{{ premium }}</span>
+                                <span class="md-subhead" ng-if="user.admin">Administrator</span>
+                            </md-card-title-text>
+                            <md-card-title-media>
+                                <div class="md-media-lg card-media">
+                                    <img ng-src="https://mc-heads.net/avatar/{{ user.username }}">
+                                </div>
+                            </md-card-title-media>
+                        </md-card-title>
+                        <md-card-actions layout="row" layout-align="end center">
+                            <md-button ng-if="!user.premium" href="#/purchase" class="md-primary md-raised">Purchase Atropos
+                            </md-button>
+                            <md-menu>
+                                <md-button aria-label="Open settings interactions menu" ng-click="openMenu($mdOpenMenu, $event)">
+                                    Options
+                                </md-button>
+                                <md-menu-content width="4">
+                                    <md-menu-item>
+                                        <md-button ng-click="showSettings()">
+                                            <md-icon class="material-icons">settings</md-icon>
+                                            Settings
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="showPassword()">
+                                            <md-icon class="material-icons">lock</md-icon>
+                                            Change Password
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item>
+                                        <md-button ng-click="showFeedback()">
+                                            <md-icon class="material-icons">comment</md-icon>
+                                            Send Feedback
+                                        </md-button>
+                                    </md-menu-item>
+                                    <md-menu-item ng-if="user.premium">
+                                        <md-button ng-click="showFeedback()">
+                                            <md-icon class="material-icons">get_app</md-icon>
+                                            Download Atropos
+                                        </md-button>
+                                    </md-menu-item>
+                                </md-menu-content>
+                            </md-menu>
+                            <md-button ng-click="logout()">Log Out</md-button>
+                        </md-card-actions>
+                    </md-card>
+                </md-content>
+            </div>
         </div>
 
-        <div ng-if="user.admin" class="feedback">
-            <h3 class="text-center">User Feedback</h3>
-            <hr flex="50">
+        <hr flex="50">
 
-            <div layout="row" layout-align="center center" ng-repeat="post in (feedbackList | orderBy: post.date:true)" ng-if="user.admin" ng-animate="'animate'">
-                <md-card md-theme="default" md-theme-watch flex="50" class="text-left">
-                    <md-card-title>
-                        <md-card-title-text>
-                            <span class="md-headline">{{ post.title }}</span>
-                            <span class="md-subhead">{{ post.author }}</span>
-                        </md-card-title-text>
-                        <md-card-title-media>
-                            <div class="md-media-md card-media">
-                                <img src="https://mc-heads.net/avatar/{{ post.author }}">
-                            </div>
-                        </md-card-title-media>
-                    </md-card-title>
-                    <md-card-content>
-                        {{ post.content }}
-                    </md-card-content>
-                    <md-card-actions layout="row" layout-align="end center">
+        <div ng-if="user.admin" class="feedback text-left" layout="row" layout-align="center center">
+            <div flex="50">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        User Feedback
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="refresh()">
+                            <md-icon class="material-icon">refresh</md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
 
-                    </md-card-actions>
-                </md-card>
+                <md-content style="height: 600px;">
+
+                    <section>
+                        <md-subheader class="md-warn">High Priority</md-subheader>
+                        <md-list layout-padding>
+                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 1">
+                                <img ng-src="https://mc-heads.net/avatar/{{ post.author }}" class="md-avatar">
+                                <div class="md-list-item-text">
+                                    <h3>{{post.title}}</h3>
+                                    <p><md-icon class="material-icons">person</md-icon> {{post.author}} | <a ng-href="mailto:{{ post.email }}">{{ post.email }}</a></p>
+                                    <h4>
+                                        {{post.content}}
+                                    </h4>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </section>
+
+                    <section>
+                        <md-subheader class="md-primary">Medium Priority</md-subheader>
+                        <md-list layout-padding>
+                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 2">
+                                <img ng-src="https://mc-heads.net/avatar/{{ post.author }}" class="md-avatar">
+                                <div class="md-list-item-text">
+                                    <h3>{{post.title}}</h3>
+                                    <p><md-icon class="material-icons">person</md-icon> {{post.author}} | <a ng-href="mailto:{{ post.email }}">{{ post.email }}</a></p>
+                                    <h4>
+                                        {{post.content}}
+                                    </h4>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </section>
+
+                    <section>
+                        <md-subheader>Low Priority</md-subheader>
+                        <md-list layout-padding>
+                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 3">
+                                <img ng-src="https://mc-heads.net/avatar/{{ post.author }}" class="md-avatar">
+                                <div class="md-list-item-text">
+                                    <h3>{{post.title}}</h3>
+                                    <p><md-icon class="material-icons">person</md-icon> {{post.author}} | <a ng-href="mailto:{{ post.email }}">{{ post.email }}</a></p>
+                                    <h4>
+                                        {{post.content}}
+                                    </h4>
+                                </div>
+                            </md-list-item>
+                        </md-list>
+                    </section>
+
+                </md-content>
             </div>
         </div>
     </div>

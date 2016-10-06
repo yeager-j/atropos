@@ -15,7 +15,7 @@ app.controller('feedbackCtrl', function($scope, $mdDialog, auth, appData, feedba
             .postFeedback({
                 title: $scope.feedback.title,
                 content: $scope.feedback.text,
-                priority: 2,
+                priority: $scope.feedback.priority,
                 uuid: $scope.user._id
             }, auth)
             .then(function(res){

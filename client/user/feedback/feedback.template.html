@@ -28,6 +28,23 @@
                     </div>
                 </md-input-container>
             </div>
+            <div layout-gt-xs="row">
+                <md-input-container class="md-block" flex="40">
+                    <label>Priority</label>
+                    <md-icon class="material-icons">error</md-icon>
+                    <md-select ng-model="feedback.priority">
+                        <md-option value="1">
+                            High Priority
+                        </md-option>
+                        <md-option value="2" selected="selected">
+                            Medium Priority
+                        </md-option>
+                        <md-option value="3">
+                            Low Priority
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+            </div>
             <md-button type="submit" class="md-primary md-raised">Submit</md-button>
         </form>
     </md-dialog-content>
