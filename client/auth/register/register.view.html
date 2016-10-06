@@ -2,33 +2,59 @@
 <div class="spacer-sm"></div>
 <div class="section">
     <div class="container">
-        <h2 class="text-center">Login to Atropos</h2>
+        <h2 class="text-center">Register An Account</h2>
 
         <form name="register" class="form" ng-submit="vm.onSubmit()" method="post">
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Username</label>
-                    <input ng-model="vm.credentials.username">
+                    <md-icon class="material-icons">person</md-icon>
+                    <input ng-model="vm.credentials.username" required name="username" ng-pattern="/^[a-zA-Z0-9_]*$/" ng-minlength="3" ng-maxlength="30">
+                    <div ng-messages="register.username.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            Your username cannot contain special characters and must be greater than 3 characters and less than 30 characters.
+                        </div>
+                    </div>
                 </md-input-container>
             </div>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Email</label>
-                    <input ng-model="vm.credentials.email" type="email">
+                    <md-icon class="material-icons">email</md-icon>
+                    <input ng-model="vm.credentials.email" type="email" required name="email" ng-pattern="/^.+@.+\..+$/" ng-minlength="10" ng-maxlength="100">
+                    <div ng-messages="register.email.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            Your email must be between 10 and 100 characters long and look like an e-mail address.
+                        </div>
+                    </div>
                 </md-input-container>
             </div>
             <div layout-gt-sm="row">
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Password</label>
-                    <input ng-model="vm.credentials.password" type="password">
+                    <md-icon class="material-icons">lock</md-icon>
+                    <input ng-model="vm.credentials.password" type="password" required name="password" ng-minlength="8">
+                    <div ng-messages="register.password.$error">
+                        <div ng-message="required">This is required.</div>
+                    </div>
                 </md-input-container>
                 <md-input-container class="md-block" flex-gt-sm>
                     <label>Confirm Password</label>
-                    <input ng-model="vm.credentials.confirm" type="password">
+                    <md-icon class="material-icons">lock_outline</md-icon>
+                    <input ng-model="vm.credentials.confirm" type="password" required name="confirm" compare-to="vm.credentials.password">
+                    <div ng-messages="register.confirm.$error">
+                        <div ng-message="required">This is required.</div>
+                        <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                            Your email must be between 10 and 100 characters long and look like an e-mail address.
+                        </div>
+                        <div ng-message="compareTo">Passwords must match!</div>
+                    </div>
                 </md-input-container>
             </div>
             <div layout-gt-sm="row">
-                <md-button type="submit" class="md-primary md-raised">Register</md-button>
+                <md-button type="submit" class="md-primary md-raised" ng-disabled="mv.credentials.username.$invalid || register.email.$invalid || register.password.$invalid || register.confirm.$invalid">Register</md-button>
             </div>
         </form>
     </div>

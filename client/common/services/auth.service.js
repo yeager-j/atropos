@@ -1,7 +1,7 @@
 /**
  * Created by Jackson on 9/30/16.
  */
-app.service('auth', function($http, $window, $route){
+app.service('auth', function ($http, $window, $route) {
     var saveToken = function (token) {
         $window.localStorage['mean-token'] = token;
     };
@@ -18,19 +18,19 @@ app.service('auth', function($http, $window, $route){
         var token = getToken();
         var payload;
 
-        if(token){
+        if (token) {
             payload = token.split('.')[1];
             payload = $window.atob(payload);
             payload = JSON.parse(payload);
 
             return payload.exp > Date.now() / 1000;
-        }else{
+        } else {
             return false;
         }
     };
 
     var currentUser = function () {
-        if(isLoggedIn()){
+        if (isLoggedIn()) {
             var token = getToken();
             var payload = token.split('.')[1];
             payload = $window.atob(payload);
@@ -44,14 +44,41 @@ app.service('auth', function($http, $window, $route){
     };
 
     var register = function (user) {
-        return $http.post('/api/register', user).then(function(response){
+        return $http.post('/api/register', user).then(function (response) {
             saveToken(response.data.token);
             $route.reload();
         })
     };
 
+    var edit = function (user, auth) {
+        return $http.post('/api/edit', {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer '+ auth.getToken()
+            },
+            data: user
+        }).then(function (response) {
+            saveToken(response.data.token);
+            console.log("Token: ");
+            console.log(response.data.token);
+            $route.reload();
+        })
+    };
+
+    var password = function (user, auth) {
+        return $http.post('/api/password', {
+            method: 'POST',
+            headers: {
+                Authorization: 'Bearer '+ auth.getToken()
+            },
+            data: user
+        }).then(function (response) {
+            $route.reload();
+        })
+    };
+
     var login = function (user) {
-        return $http.post('/api/login', user).then(function(response){
+        return $http.post('/api/login', user).then(function (response) {
             console.dir(response);
             saveToken(response.data.token);
             $route.reload();
@@ -65,6 +92,8 @@ app.service('auth', function($http, $window, $route){
         isLoggedIn: isLoggedIn,
         currentUser: currentUser,
         register: register,
+        edit: edit,
+        password: password,
         login: login
     };
 });

@@ -47,13 +47,26 @@ app.controller('userCtrl', function($scope, auth, appData, $timeout, $mdBottomSh
             //         .hideDelay(1500)
             // );
 
-            $mdDialog.show({
-                controller: 'userCtrl',
-                templateUrl: 'user/download-dialog.html',
-                parent: angular.element(document.body),
-                clickOutsideToClose:true,
-                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-            });
+            switch(clickedItem.name){
+                case "Settings":
+                    $mdDialog.show({
+                        controller: 'settingsCtrl',
+                        templateUrl: 'user/settings/settings.template.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose:true,
+                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                    });
+                    break;
+                case "Change Password":
+                    $mdDialog.show({
+                        controller: 'passwordCtrl',
+                        templateUrl: 'user/password/password.template.html',
+                        parent: angular.element(document.body),
+                        clickOutsideToClose:true,
+                        fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+                    });
+                    break;
+            }
         });
     };
 

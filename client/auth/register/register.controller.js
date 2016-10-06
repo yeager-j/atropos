@@ -11,8 +11,6 @@ app.controller('registerCtrl', function($location, auth){
     };
 
     vm.onSubmit = function(){
-        console.log("Registering");
-
         auth
             .register(vm.credentials)
             .then(function(){

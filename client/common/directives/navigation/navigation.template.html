@@ -10,5 +10,6 @@
         <a href="#" class="nav-link" ng-class="{'nav-active': isActive('/support')}">Support</a>
         <a href="#/panel" class="nav-link" ng-class="{'nav-active': isActive('/panel')}" ng-show="isLoggedIn">{{ currentUser.username }}</a>
         <a href="#/login" class="nav-link" ng-class="{'nav-active': isActive('/login')}" ng-hide="isLoggedIn">Login</a>
+        <a href="#/register" class="nav-link" ng-class="{'nav-active': isActive('/register')}" ng-hide="isLoggedIn">Register</a>
     </div>
 </div>

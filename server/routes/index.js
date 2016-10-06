@@ -12,7 +12,9 @@ var ctrlAuth = require('../controllers/auth');
 var userAuth = require('../controllers/user_cp');
 
 router.post('/register', ctrlAuth.register);
+router.post('/edit', ctrlAuth.edit);
 router.post('/login', ctrlAuth.login);
+router.post('/password', ctrlAuth.updatePass);
 
 router.get('/profile', auth, userAuth.userCP);
 
