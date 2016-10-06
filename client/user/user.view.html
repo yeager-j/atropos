@@ -8,7 +8,7 @@
                     <md-toolbar>
                         <div class="md-toolbar-tools">Control Panel</div>
                     </md-toolbar>
-                    <md-card md-theme="default" md-theme-watch class="text-left">
+                    <md-card md-theme="default" md-theme-watch class="text-left transparent">
                         <md-card-title>
                             <md-card-title-text>
                                 <span class="md-headline">{{ user.username }}</span>
@@ -23,8 +23,7 @@
                             </md-card-title-media>
                         </md-card-title>
                         <md-card-actions layout="row" layout-align="end center">
-                            <md-button ng-if="!user.premium" href="#/purchase" class="md-primary md-raised">Purchase Atropos
-                            </md-button>
+                            <md-button ng-if="!user.premium" href="#/purchase" class="md-primary md-raised">Purchase Atropos</md-button>
                             <md-menu>
                                 <md-button aria-label="Open settings interactions menu" ng-click="openMenu($mdOpenMenu, $event)">
                                     Options

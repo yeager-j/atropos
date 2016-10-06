@@ -360,3 +360,8 @@ md-bottom-sheet.md-grid md-list-item .md-grid-text {
     background: #fff;
   }
 }
+
+md-card.transparent{
+  background: transparent !important;
+  box-shadow: none !important;
+}

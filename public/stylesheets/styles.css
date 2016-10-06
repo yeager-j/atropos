@@ -513,3 +513,9 @@ md-bottom-sheet.md-grid md-list-item .md-grid-text {
 .feedback .ng-move-active {
   background: #fff;
 }
+
+/* line 364, ../compass/sass/styles.scss */
+md-card.transparent {
+  background: transparent !important;
+  box-shadow: none !important;
+}
