@@ -7,8 +7,20 @@ body {
   overflow-x: hidden;
 }
 
+body, html{
+  min-height: 100% !important;
+}
+
+body.md-dialog-is-showing {
+  overflow: visible !important;
+}
+
+body.md-menu-is-showing {
+  overflow: visible !important;
+}
+
 html{
-  background-color: #555;
+  background-color: white;
 }
 
 .material-icons.md-18 {

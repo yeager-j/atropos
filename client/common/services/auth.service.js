@@ -59,8 +59,6 @@ app.service('auth', function ($http, $window, $route) {
             data: user
         }).then(function (response) {
             saveToken(response.data.token);
-            console.log("Token: ");
-            console.log(response.data.token);
             $route.reload();
         })
     };
@@ -79,7 +77,6 @@ app.service('auth', function ($http, $window, $route) {
 
     var login = function (user) {
         return $http.post('/api/login', user).then(function (response) {
-            console.dir(response);
             saveToken(response.data.token);
             $route.reload();
         })

@@ -18,6 +18,7 @@ router.post('/login', ctrlAuth.login);
 router.post('/password', ctrlAuth.updatePass);
 
 router.post('/feedback', feedback.submit);
+router.get('/feedback/:id', auth, feedback.deleteFeedback);
 router.get('/feedback', auth, feedback.getFeedback);
 
 router.get('/profile', auth, userAuth.userCP);

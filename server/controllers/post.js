@@ -47,6 +47,31 @@ module.exports.submit = function(req, res){
     });
 };
 
+module.exports.deleteFeedback = function(req, res){
+    console.log("ID: ");
+    console.log(req.payload._id);
+    if(!req.payload._id){
+        res.status(401).json({
+            message: "Unauthorized"
+        })
+    }else{
+        User.findById(req.payload._id)
+            .exec(function(err, user) {
+                if(user.admin){
+                    Post.findByIdAndRemove(req.params.id, function(err, post){
+                        sendJSONresponse(res, 200, {
+                            message: "OK"
+                        });
+                    });
+                }else{
+                    sendJSONresponse(res, 401, {
+                        message: "Cannot delete feedback."
+                    })
+                }
+            });
+    }
+};
+
 module.exports.getFeedback = function (req, res) {
     if (!req.payload._id) {
         res.status(401).json({

@@ -16,8 +16,17 @@ app.service('feedback', function($http, auth, $route){
         });
     };
 
+    var deleteFeedback = function(id){
+        return $http.get('/api/feedback/' + id, {
+            headers: {
+                Authorization: 'Bearer ' + auth.getToken()
+            }
+        });
+    };
+
     return {
         postFeedback: postFeedback,
+        deleteFeedback: deleteFeedback,
         getFeedback: getFeedback
     }
 });

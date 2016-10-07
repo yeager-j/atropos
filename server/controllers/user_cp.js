@@ -28,7 +28,6 @@ module.exports.getUser = function (req, res) {
                 if (user.admin) {
                     User.findById(req.params.id)
                         .exec(function (err, user) {
-                            console.log(user);
                             res.status(200).json(user);
                         })
                 } else {

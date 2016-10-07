@@ -41,7 +41,7 @@
                                             Change Password
                                         </md-button>
                                     </md-menu-item>
-                                    <md-menu-item>
+                                    <md-menu-item ng-if="user.premium">
                                         <md-button ng-click="showFeedback()">
                                             <md-icon class="material-icons">comment</md-icon>
                                             Send Feedback
@@ -80,15 +80,15 @@
 
                     <section>
                         <md-subheader class="md-warn">High Priority</md-subheader>
-                        <md-list layout-padding>
-                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 1">
+                        <md-list flex>
+                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 1" ng-click="delete(post._id)">
                                 <img ng-src="https://mc-heads.net/avatar/{{ post.author }}" class="md-avatar">
                                 <div class="md-list-item-text">
-                                    <h3>{{post.title}}</h3>
-                                    <p><md-icon class="material-icons">person</md-icon> {{post.author}} | <a ng-href="mailto:{{ post.email }}">{{ post.email }}</a></p>
-                                    <h4>
+                                    <h3>{{post.author}}</h3>
+                                    <h4>{{post.title}}</h4>
+                                    <p>
                                         {{post.content}}
-                                    </h4>
+                                    </p>
                                 </div>
                             </md-list-item>
                         </md-list>
@@ -96,15 +96,15 @@
 
                     <section>
                         <md-subheader class="md-primary">Medium Priority</md-subheader>
-                        <md-list layout-padding>
-                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 2">
+                        <md-list flex>
+                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 2" ng-click="delete(post._id)">
                                 <img ng-src="https://mc-heads.net/avatar/{{ post.author }}" class="md-avatar">
                                 <div class="md-list-item-text">
-                                    <h3>{{post.title}}</h3>
-                                    <p><md-icon class="material-icons">person</md-icon> {{post.author}} | <a ng-href="mailto:{{ post.email }}">{{ post.email }}</a></p>
-                                    <h4>
+                                    <h3>{{post.author}}</h3>
+                                    <h4>{{post.title}}</h4>
+                                    <p>
                                         {{post.content}}
-                                    </h4>
+                                    </p>
                                 </div>
                             </md-list-item>
                         </md-list>
@@ -112,15 +112,15 @@
 
                     <section>
                         <md-subheader>Low Priority</md-subheader>
-                        <md-list layout-padding>
-                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 3">
+                        <md-list flex>
+                            <md-list-item class="md-3-line" ng-repeat="post in (feedbackList | orderBy:date:false)" ng-if="post.priority == 3" ng-click="delete(post._id)">
                                 <img ng-src="https://mc-heads.net/avatar/{{ post.author }}" class="md-avatar">
                                 <div class="md-list-item-text">
-                                    <h3>{{post.title}}</h3>
-                                    <p><md-icon class="material-icons">person</md-icon> {{post.author}} | <a ng-href="mailto:{{ post.email }}">{{ post.email }}</a></p>
-                                    <h4>
+                                    <h3>{{post.author}}</h3>
+                                    <h4>{{post.title}}</h4>
+                                    <p>
                                         {{post.content}}
-                                    </h4>
+                                    </p>
                                 </div>
                             </md-list-item>
                         </md-list>

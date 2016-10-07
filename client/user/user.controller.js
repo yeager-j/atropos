@@ -29,21 +29,30 @@ app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, 
 
     $scope.refresh = function(){
         $scope.feedbackList = [];
-        feedback.getFeedback()
-            .then(function (res) {
-                for(var i = 0; i < res.data.length; i++){
-                    (function(){
-                        var n = i;
-                        appData.getUser(res.data[i].uuid)
-                            .then(function(response){
-                                res.data[n].author = response.data.username;
-                                res.data[n].email = response.data.email;
-                                console.log(res.data[n]);
-                                $scope.feedbackList.push(res.data[n]);
-                            });
-                    })();
-                }
-            });
+        return $timeout(function(){
+            feedback.getFeedback()
+                .then(function (res) {
+                    for(var i = 0; i < res.data.length; i++){
+                        (function(){
+                            var n = i;
+                            appData.getUser(res.data[i].uuid)
+                                .then(function(response){
+                                    res.data[n].author = response.data.username;
+                                    res.data[n].email = response.data.email;
+                                    $scope.feedbackList.push(res.data[n]);
+                                });
+                        })();
+                    }
+                });
+        }, 1000);
+    };
+
+    $scope.delete = function(id){
+        feedback.deleteFeedback(id)
+            .then(function(res){
+                console.log(res);
+                $scope.refresh();
+            })
     };
 
     $scope.loadVersions = function () {
@@ -69,9 +78,7 @@ app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, 
         $mdDialog.show({
             controller: 'settingsCtrl',
             templateUrl: 'user/settings/settings.template.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose: true,
-            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            clickOutsideToClose: true
         });
     };
 
@@ -79,9 +86,7 @@ app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, 
         $mdDialog.show({
             controller: 'passwordCtrl',
             templateUrl: 'user/password/password.template.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose: true,
-            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            clickOutsideToClose: true
         });
     };
 
@@ -89,9 +94,7 @@ app.controller('userCtrl', function ($scope, auth, feedback, appData, $timeout, 
         $mdDialog.show({
             controller: 'feedbackCtrl',
             templateUrl: 'user/feedback/feedback.template.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose: true,
-            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            clickOutsideToClose: true
         });
     };
 
