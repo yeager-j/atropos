@@ -1,0 +1,66 @@
+<div class="spacer-sm"></div>
+<div class="section section-grey">
+    <div class="container">
+        <div layout="row" layout-align="center center">
+            <div flex="80">
+                <md-content>
+                    <md-toolbar>
+                        <div class="md-toolbar-tools">Admin Control Panel</div>
+                    </md-toolbar>
+                    <div layout="row" flex-xs layout-wrap>
+                        <md-card md-theme="default" md-theme-watch class="text-left userCard" flex="33"
+                                 ng-repeat="user in users">
+                            <md-card-title>
+                                <md-card-title-text>
+                                    <span class="md-headline">{{ user.username }}</span>
+                                    <span class="md-subhead">{{ user.email }}</span>
+                                    <span class="md-subhead" ng-if="user.premium">Premium!</span>
+                                    <span class="md-subhead" ng-if="user.admin">Administrator</span>
+                                </md-card-title-text>
+                                <md-card-title-media>
+                                    <div class="md-media-lg card-media">
+                                        <img ng-src="https://mc-heads.net/avatar/{{ user.username }}">
+                                    </div>
+                                </md-card-title-media>
+                            </md-card-title>
+                            <md-card-actions layout="row" layout-align="end center">
+                                <md-menu>
+                                    <md-button aria-label="Open settings interactions menu"
+                                               ng-click="openMenu($mdOpenMenu, $event)">
+                                        Options
+                                    </md-button>
+                                    <md-menu-content width="4">
+                                        <md-menu-item>
+                                            <md-button ng-click="toggleAdmin($event, user._id)">
+                                                <span ng-if="!user.admin">
+                                                    <md-icon class="material-icons">verified_user</md-icon>
+                                                    Grant Admin
+                                                </span>
+                                                <span ng-if="user.admin">
+                                                    <md-icon class="material-icons">not_interested</md-icon>
+                                                    Rescind Admin
+                                                </span>
+                                            </md-button>
+                                        </md-menu-item>
+                                        <md-menu-item>
+                                            <md-button ng-click="togglePremium($event, user._id)">
+                                                <span ng-if="!user.premium">
+                                                    <md-icon class="material-icons">credit_card</md-icon>
+                                                    Grant Premium
+                                                </span>
+                                                <span ng-if="user.premium">
+                                                    <md-icon class="material-icons">not_interested</md-icon>
+                                                    Rescind Premium
+                                                </span>
+                                            </md-button>
+                                        </md-menu-item>
+                                    </md-menu-content>
+                                </md-menu>
+                            </md-card-actions>
+                        </md-card>
+                    </div>
+                </md-content>
+            </div>
+        </div>
+    </div>
+</div>

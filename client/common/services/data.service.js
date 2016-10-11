@@ -3,23 +3,38 @@
  */
 app.service('appData', function($http, auth){
     var getData = function(){
-        return $http.get('/api/profile', {
+        return $http({
+            method: 'GET',
+            url: '/api/profile',
             headers: {
-                Authorization: 'Bearer '+ auth.getToken()
+                'authorization': 'Bearer ' + auth.getToken()
             }
         });
     };
 
     var getUser = function(id){
-        return $http.get('/api/profile/' + id, {
+        return $http({
+            method: 'GET',
+            url: '/api/profile/' + id,
             headers: {
-                Authorization: 'Bearer '+ auth.getToken()
+                'authorization': 'Bearer ' + auth.getToken()
             }
         });
     };
 
+    var getAllUsers = function(){
+        return $http({
+            method: 'GET',
+            url: '/api/all_users',
+            headers: {
+                'authorization': 'Bearer ' + auth.getToken()
+            }
+        })
+    };
+
     return {
         getData: getData,
-        getUser: getUser
+        getUser: getUser,
+        getAllUsers: getAllUsers
     }
 });

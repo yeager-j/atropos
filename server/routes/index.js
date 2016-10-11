@@ -13,15 +13,19 @@ var userAuth = require('../controllers/user_cp');
 var feedback = require('../controllers/post');
 
 router.post('/register', ctrlAuth.register);
-router.post('/edit', ctrlAuth.edit);
 router.post('/login', ctrlAuth.login);
-router.post('/password', ctrlAuth.updatePass);
 
-router.post('/feedback', feedback.submit);
+router.post('/edit', auth, ctrlAuth.edit);
+router.post('/password', auth, ctrlAuth.updatePass);
+router.post('/admin', auth, ctrlAuth.toggleAdmin);
+router.post('/premium', auth, ctrlAuth.togglePremium);
+
+router.post('/feedback', auth, feedback.submit);
 router.get('/feedback/:id', auth, feedback.deleteFeedback);
 router.get('/feedback', auth, feedback.getFeedback);
 
 router.get('/profile', auth, userAuth.userCP);
 router.get('/profile/:id', auth, userAuth.getUser);
+router.get('/all_users', auth, userAuth.getAllUsers);
 
 module.exports = router;

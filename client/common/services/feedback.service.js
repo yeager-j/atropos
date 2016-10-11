@@ -3,7 +3,14 @@
  */
 app.service('feedback', function($http, auth, $route){
     var postFeedback = function(feedback){
-        return $http.post('/api/feedback', feedback).then(function(response){
+        return $http({
+            method: 'POST',
+            url: '/api/feedback',
+            headers: {
+                'authorization': 'Bearer ' + auth.getToken()
+            },
+            data: feedback
+        }).then(function(response){
             $route.reload();
         })
     };
@@ -11,15 +18,17 @@ app.service('feedback', function($http, auth, $route){
     var getFeedback = function(){
         return $http.get('/api/feedback', {
             headers: {
-                Authorization: 'Bearer '+ auth.getToken()
+                'authorization': 'Bearer ' + auth.getToken()
             }
         });
     };
 
     var deleteFeedback = function(id){
-        return $http.get('/api/feedback/' + id, {
+        return $http({
+            method: 'GET',
+            url: '/api/feedback/' + id,
             headers: {
-                Authorization: 'Bearer ' + auth.getToken()
+                'authorization': 'Bearer ' + auth.getToken()
             }
         });
     };

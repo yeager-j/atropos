@@ -10,8 +10,8 @@ var sendJSONresponse = function (res, status, content) {
     res.json(content);
 };
 
-module.exports.submit = function(req, res){
-    if(!req.body.title || !req.body.content){
+module.exports.submit = function (req, res) {
+    if (!req.body.title || !req.body.content) {
         sendJSONresponse(res, 400, {
             message: "All fields required"
         });
@@ -19,13 +19,13 @@ module.exports.submit = function(req, res){
         return;
     }
 
-    User.findById(req.body.uuid, function(err, user){
-        if(err){
+    User.findById(req.body.uuid, function (err, user) {
+        if (err) {
             handleError(err);
             return;
         }
 
-        if(!user.premium){
+        if (!user.premium) {
             sendJSONresponse(res, 401, {
                 message: "You must purchase Atropos to submit feedback"
             });
@@ -39,7 +39,7 @@ module.exports.submit = function(req, res){
         post.priority = req.body.priority;
         post.uuid = req.body.uuid;
 
-        post.save(function(err){
+        post.save(function (err) {
             sendJSONresponse(res, 200, {
                 message: "OK"
             })
@@ -47,23 +47,33 @@ module.exports.submit = function(req, res){
     });
 };
 
-module.exports.deleteFeedback = function(req, res){
-    console.log("ID: ");
-    console.log(req.payload._id);
-    if(!req.payload._id){
+module.exports.deleteFeedback = function (req, res) {
+    if (!req.payload._id) {
         res.status(401).json({
             message: "Unauthorized"
         })
-    }else{
+    } else {
         User.findById(req.payload._id)
-            .exec(function(err, user) {
-                if(user.admin){
-                    Post.findByIdAndRemove(req.params.id, function(err, post){
-                        sendJSONresponse(res, 200, {
-                            message: "OK"
-                        });
-                    });
-                }else{
+            .exec(function (err, user) {
+                if (user.premium) {
+                    if (user.admin) {
+                        Post.findByIdAndRemove(req.params.id, function (err, post) {
+                            sendJSONresponse(res, 200, {
+                                message: "OK"
+                            })
+                        })
+                    } else {
+                        Post.findById(req.params.id, function (err, post) {
+                            if (post.uuid == user._id) {
+                                Post.findByIdAndRemove(req.params.id, function (err, deletedPost) {
+                                    sendJSONresponse(res, 200, {
+                                        message: "OK"
+                                    })
+                                })
+                            }
+                        })
+                    }
+                } else {
                     sendJSONresponse(res, 401, {
                         message: "Cannot delete feedback."
                     })
@@ -77,14 +87,24 @@ module.exports.getFeedback = function (req, res) {
         res.status(401).json({
             message: "Unauthorized"
         })
-    }else{
+    } else {
         User.findById(req.payload._id)
-            .exec(function(err, user) {
-                if(user.admin){
-                    Post.find({}, function(err, post){
-                        sendJSONresponse(res, 200, post);
-                    });
-                }else{
+            .exec(function (err, user) {
+                if (user.premium) {
+                    if (user.admin) {
+                        Post.find({}, function (err, post) {
+                            sendJSONresponse(res, 200, post);
+                        });
+                    } else {
+                        Post.find({uuid: user._id}, function (err, post) {
+                            if (err) {
+                                console.log(err);
+                            }
+
+                            sendJSONresponse(res, 200, post);
+                        })
+                    }
+                } else {
                     sendJSONresponse(res, 401, {
                         message: "Cannot view feedback."
                     })

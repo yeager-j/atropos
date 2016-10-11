@@ -29,20 +29,6 @@ app.service('auth', function ($http, $window, $route) {
         }
     };
 
-    var currentUser = function () {
-        if (isLoggedIn()) {
-            var token = getToken();
-            var payload = token.split('.')[1];
-            payload = $window.atob(payload);
-            payload = JSON.parse(payload);
-
-            return {
-                email: payload.email,
-                username: payload.username
-            }
-        }
-    };
-
     var register = function (user) {
         return $http.post('/api/register', user).then(function (response) {
             saveToken(response.data.token);
@@ -51,10 +37,11 @@ app.service('auth', function ($http, $window, $route) {
     };
 
     var edit = function (user, auth) {
-        return $http.post('/api/edit', {
+        return $http({
             method: 'POST',
+            url: '/api/edit',
             headers: {
-                Authorization: 'Bearer '+ auth.getToken()
+                'authorization': 'Bearer ' + getToken()
             },
             data: user
         }).then(function (response) {
@@ -64,10 +51,11 @@ app.service('auth', function ($http, $window, $route) {
     };
 
     var password = function (user, auth) {
-        return $http.post('/api/password', {
+        return $http({
             method: 'POST',
+            url: '/api/password',
             headers: {
-                Authorization: 'Bearer '+ auth.getToken()
+                'authorization': 'Bearer ' + getToken()
             },
             data: user
         }).then(function (response) {
@@ -82,15 +70,42 @@ app.service('auth', function ($http, $window, $route) {
         })
     };
 
+    var toggleAdmin = function (user) {
+        return $http({
+            method: 'POST',
+            url: '/api/admin',
+            headers: {
+                'authorization': 'Bearer ' + getToken()
+            },
+            data: user
+        }).then(function (response) {
+            $route.reload();
+        })
+    };
+
+    var togglePremium = function (user) {
+        return $http({
+            method: 'POST',
+            url: '/api/premium',
+            headers: {
+                'authorization': 'Bearer ' + getToken()
+            },
+            data: user
+        }).then(function (response) {
+            $route.reload();
+        })
+    };
+
     return {
         saveToken: saveToken,
         getToken: getToken,
         logout: logout,
         isLoggedIn: isLoggedIn,
-        currentUser: currentUser,
         register: register,
         edit: edit,
         password: password,
-        login: login
+        login: login,
+        toggleAdmin: toggleAdmin,
+        togglePremium: togglePremium
     };
 });

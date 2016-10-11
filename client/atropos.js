@@ -42,6 +42,11 @@ app.config(function($routeProvider, $mdThemingProvider, $locationProvider){
             controller: 'userCtrl'
         })
 
+        .when('/admin', {
+            templateUrl: 'admin/admin.view.html',
+            controller: 'adminCtrl'
+        })
+
         .otherwise({
             redirectTo: '/'
         });
@@ -52,11 +57,19 @@ app.config(function($routeProvider, $mdThemingProvider, $locationProvider){
     $mdThemingProvider.alwaysWatchTheme(true);
 });
 
-app.run(function($rootScope, $location, auth){
+app.run(function($rootScope, $location, appData, auth){
     $rootScope.$on('$routeChangeStart', function(event, nextRoute, currentRoute){
-        console.log($location.path());
         if($location.path() === '/panel' && !auth.isLoggedIn()){
             $location.path('/');
+        }
+
+        if($location.path() === '/admin'){
+            appData.getData()
+                .then(function(response){
+                    if(!response.data.admin){
+                        $location.path('/');
+                    }
+                })
         }
     });
 

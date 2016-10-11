@@ -29,6 +29,8 @@ app.use(passport.initialize());
 
 app.use('/api', routesApi);
 
+app.set('secretKey', "&98e987gwerhgu25g0w7erhgwe");
+
 app.use(function(req, res) {
     res.sendFile(path.join(__dirname, 'client', 'index.html'));
 });
